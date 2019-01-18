@@ -1,0 +1,131 @@
+﻿<Window x:Class="抽奖.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+        xmlns:local="clr-namespace:抽奖"
+        mc:Ignorable="d"
+        Title="抽奖小程序 V1.0" ResizeMode="CanMinimize" WindowState="Maximized" x:Name="myWindow" FontFamily="幼圆" FontWeight="Bold" Closing="myWindow_Closing">
+    
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Width" Value="130"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+      
+
+    </Window.Resources>
+
+    <Grid Loaded="Grid_Loaded" x:Name="myGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Canvas Grid.Row="0">
+            <Image  Height="38" Width="150" Canvas.Right="10" Canvas.Top="0"  Source=".\images\Airsafe.png" />
+            <TabControl Grid.Row="0" Grid.RowSpan="2"  Canvas.Left="10" Canvas.Top="10"  BorderThickness="1" BorderBrush="#FF0A51A1" x:Name="Game" Height="{Binding ElementName=myGrid, Path=ActualHeight}" Width="{Binding ElementName=myGrid,Path=ActualWidth}">
+                <TabControl.Background>
+                    <ImageBrush ImageSource="images\Background.jpg" Stretch="Fill" ViewportUnits="RelativeToBoundingBox"/>
+                </TabControl.Background>
+                <TabItem Header="名单导入" FontSize="18" Background="AliceBlue" Height="28" Width="150" Margin="0" Padding="0" x:Name="NameList">
+                    <Grid>
+                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="230" Height="70" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Gold">
+                            <Button x:Name="ImportNameList" Content="导入名单" Width="230" Height="70" FontSize="40" Click="ImportNameList_Click"/>
+                        </Border>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="首页" FontSize="18" Background="AliceBlue" Height="28" Width="150" Margin="0" Padding="0" x:Name="FirstPage" Visibility="Collapsed">
+                    <Grid>
+                        <TextBlock Text="上海航安机场设备有限公司" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="100" Foreground="Gold" Margin="0,100,0,0"/>
+                        <TextBlock Text="2018年 年度抽奖" VerticalAlignment="Top"  HorizontalAlignment="Center" FontSize="100" Foreground="Gold" Margin="0,300,0,0"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="小游戏" FontSize="18" Background="AliceBlue" Height="28" Width="150" Margin="0" Padding="0" x:Name="LittleGame" Visibility="Collapsed">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="150"/>
+                            <RowDefinition />
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="100"/>
+
+                        </Grid.RowDefinitions>
+                        
+                        <TextBlock x:Name="LittleGamePrizeName" Background="{x:Null}" Foreground="Gold" Text="最有希望奖" Grid.Row="0" Width="500" FontSize="100" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+                        <TextBlock x:Name="LittleGameNameResult" Background="{x:Null}" Grid.Row="1" Width="800" FontSize="60" VerticalAlignment="Top" HorizontalAlignment="Center" TextWrapping="Wrap"  TextAlignment="Center"/>
+                        <TextBlock x:Name="LittleGameNameFlow" Background="Gold" Grid.Row="2" Width="400" Height="100" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center" Text="抽奖箱" TextAlignment="Center" Padding="0,10,0,0"/>
+
+                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="230" Height="70" Background="Gold" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,10,0,0">
+                            <Button x:Name="StartLittleGame" Content="开始" Width="230" Height="70" FontSize="40" Click="StartLittleGame_Click"/>
+                        </Border>
+                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="230" Height="70" Background="Gold" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,20,0">
+                            <Button x:Name="NextLittleGame" Content="下一奖项" Width="230" Height="70" FontSize="40" Click="NextLittleGame_Click"/>
+                        </Border>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="抽奖" FontSize="18" Background="AliceBlue" Height="28" Width="150" Margin="0" Padding="0" x:Name="LuckyDraw" Visibility="Collapsed">
+                    <Grid x:Name="LuckyDrawGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition />
+                            <RowDefinition Height="100"/>
+
+                        </Grid.RowDefinitions>
+
+                        <Image gif:AnimationBehavior.SourceUri="images/BackgroundWithFirework.gif" Height="{Binding ElementName=LuckyDrawGrid, Path=ActualHeight}" Width="{Binding ElementName=LuckyDrawGrid, Path=ActualWidth}" Grid.Row="0" Grid.RowSpan="4" x:Name="fireworks" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Collapsed"/>
+
+                        <TextBlock x:Name="LuckyDrawPrizeName" Background="{x:Null}" Foreground="Gold" Text="五等奖" Grid.Row="0"  Width="350" FontSize="100" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+                        <TextBlock x:Name="SpeedShow" Background="{x:Null}" Grid.Row="1" Width="250" Height="50" FontSize="40" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,10,0,0" Text="速度调节:" />
+                        
+                        <Slider x:Name="SpeedAdjust" Maximum="1000" Minimum="50" Value="100" IsDirectionReversed="True" TickPlacement="BottomRight" IsSnapToTickEnabled="True" TickFrequency="10" SmallChange="1" LargeChange="10" Grid.Row="1" Width="800" Height="75" Background="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,90,0,0"  ValueChanged="SpeedAdjust_ValueChanged" />
+                        <TextBlock x:Name="Slow" Text="慢" Background="{x:Null}" Grid.Row="1" Width="80" FontSize="40" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,90,0,0" TextAlignment="Center"/>
+                        <TextBlock x:Name="Fast" Text="快" Background="{x:Null}" Grid.Row="1" Width="80" FontSize="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,90,20,0" TextAlignment="Center"/>
+
+                        
+                        <TextBlock x:Name="LuckyDrawNameFlow" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Gold" Width="400" Height="100" Padding="0,10,0,0" FontSize="60" Text="抽奖箱" TextAlignment="Center"/>
+
+                          
+                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="230" Height="70" Background="Gold" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,10,0,0">
+                            <Button x:Name="StartLuckyDraw" Content="开始" Width="230" Height="70" FontSize="40" Click="StartLuckyDraw_Click" />
+                        </Border>
+                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="230" Height="70" Background="Gold" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,20,0">
+                            <Button x:Name="NextLuckyDraw" Content="下一奖项" Width="230" Height="70" FontSize="40"  Click="NextLuckyDraw_Click" />
+                        </Border>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="设置" FontSize="18" Background="AliceBlue" Height="28" Width="150" Margin="0" Padding="0" x:Name="Setting" Visibility="Collapsed">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="300"/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Background="{x:Null}" Grid.Row="0" Width="250" Height="50" FontSize="40" VerticalAlignment="Top" HorizontalAlignment="Left"  Text="奖项选择:" Margin="20,20,0,0"/>
+                        <RadioButton x:Name="SettingOnePrize" Content="一等奖" FontSize="40" GroupName="SettingPrize" Grid.Row="0" VerticalAlignment="Top" Width="150" Height="50" Margin="20,90,0,0" HorizontalAlignment="Left" IsChecked="True"/>
+                        <RadioButton x:Name="SettingTwoPrize" Content="二等奖" FontSize="40" GroupName="SettingPrize" Grid.Row="0" VerticalAlignment="Top" Width="150" Height="50" Margin="250,90,0,0" HorizontalAlignment="Left" />
+                        <RadioButton x:Name="SettingThreePrize" Content="三等奖" FontSize="40" GroupName="SettingPrize" Grid.Row="0" VerticalAlignment="Top" Width="150" Height="50" Margin="450,90,0,0" HorizontalAlignment="Left"/>
+                        <RadioButton x:Name="SettingFourPrize" Content="四等奖" FontSize="40" GroupName="SettingPrize" Grid.Row="0" VerticalAlignment="Top" Width="150" Height="50" Margin="650,90,0,0" HorizontalAlignment="Left" />
+                        <RadioButton x:Name="SettingFivePrize" Content="五等奖" FontSize="40" GroupName="SettingPrize" Grid.Row="0" VerticalAlignment="Top" Width="150" Height="50" Margin="20,150,0,0" HorizontalAlignment="Left" />
+                        <RadioButton x:Name="SettingSixPrize" Content="最佳烧脑奖" FontSize="40" GroupName="SettingPrize" Grid.Row="0" VerticalAlignment="Top" Width="250" Height="50" Margin="250,150,0,0" HorizontalAlignment="Left"/>
+                        <RadioButton x:Name="SettingSevenPrize" Content="最有希望奖" FontSize="40" GroupName="SettingPrize" Grid.Row="0" VerticalAlignment="Top" Width="250" Height="50" Margin="550,150,0,0" HorizontalAlignment="Left"/>
+
+
+
+                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="230" Height="70" Background="Gold" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0">
+                            <Button x:Name="SettingConfirm" Content="确认" Width="230" Height="70" FontSize="40" Click="SettingConfirm_Click"  />
+                        </Border>
+                       
+                    </Grid>
+                </TabItem>
+
+            </TabControl>
+        </Canvas>
+       
+    </Grid>
+</Window>
